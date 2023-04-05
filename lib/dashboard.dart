@@ -20,11 +20,15 @@ class _DashBoardState extends State<DashBoard> {
     var Mwidth = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
+        title: CustomText(
+          text: 'trackR.io',
+          textcolor: Color(0xFF407BFF),
+        ),
         actions: [
           IconButton(
             onPressed: () {},
             icon: Icon(Icons.logout_rounded),
-            color: Colors.blue,
+            color: Color(0xFF407BFF),
           )
         ],
         automaticallyImplyLeading: false,
@@ -122,7 +126,7 @@ class _DashBoardState extends State<DashBoard> {
                                             setState(() {
                                               _index = 0;
                                               print(_index);
-                                              print(work[0]['category']);
+                                              // print(work[0]['category']);
                                             });
                                           },
                                           icon:
@@ -304,90 +308,164 @@ class _DashBoardState extends State<DashBoard> {
                                             fontWeight: FontWeight.w500,
                                           ),
                             _index == 0
-                                ? ListView.builder(
-                                    physics: ScrollPhysics(),
-                                    shrinkWrap: true,
-                                    itemCount: work.length,
-                                    itemBuilder:
-                                        (BuildContext context, int index) {
-                                      return CheckboxListTile(
-                                        selected: work[index]["isdone"],
-                                        value: work[index]["isdone"],
-                                        onChanged: (value) {
-                                          setState(() {
-                                            work[index]["isdone"] = value!;
-                                          });
-                                        },
-                                        title: CustomText(
-                                            text: work[index]["category"]),
-                                      );
-                                    })
-                                : _index == 1
-                                    ? ListView.builder(
+                                ? work.length == 0
+                                    ? Column(children: [
+                                        SizedBox(
+                                          height: Mheight * 0.14,
+                                        ),
+                                        CustomText(
+                                          text:
+                                              'Zero tasks please click on plus button to add one',
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ])
+                                    : ListView.builder(
                                         physics: ScrollPhysics(),
                                         shrinkWrap: true,
-                                        itemCount: personal.length,
+                                        itemCount: work.length,
                                         itemBuilder:
                                             (BuildContext context, int index) {
                                           return CheckboxListTile(
-                                            selected: personal[index]["isdone"],
-                                            value: personal[index]["isdone"],
+                                            subtitle: CustomText(
+                                                text: work[index]
+                                                    ["description"]),
+                                            selected: work[index]["isdone"],
+                                            value: work[index]["isdone"],
                                             onChanged: (value) {
                                               setState(() {
-                                                personal[index]["isdone"] =
-                                                    value!;
+                                                work[index]["isdone"] = value!;
                                               });
                                             },
                                             title: CustomText(
-                                                text: personal[index]
-                                                    ["category"]),
+                                              text: work[index]["category"],
+                                              fontWeight: FontWeight.w500,
+                                            ),
                                           );
                                         })
-                                    : _index == 2
-                                        ? ListView.builder(
-                                            physics: ScrollPhysics(),
-                                            shrinkWrap: true,
-                                            itemCount: shopping.length,
-                                            itemBuilder: (BuildContext context,
-                                                int index) {
-                                              return CheckboxListTile(
-                                                selected: shopping[index]
-                                                    ["isdone"],
-                                                value: shopping[index]
-                                                    ["isdone"],
-                                                onChanged: (value) {
-                                                  setState(() {
-                                                    shopping[index]["isdone"] =
-                                                        value!;
-                                                  });
-                                                },
-                                                title: CustomText(
-                                                  text: shopping[index]
-                                                      ["category"],
-                                                ),
-                                              );
-                                            })
+                                : _index == 1
+                                    ? personal.length == 0
+                                        ? Column(children: [
+                                            SizedBox(
+                                              height: Mheight * 0.14,
+                                            ),
+                                            CustomText(
+                                              text:
+                                                  'Zero tasks please click on plus button to add one',
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                          ])
                                         : ListView.builder(
                                             physics: ScrollPhysics(),
                                             shrinkWrap: true,
-                                            itemCount: health.length,
+                                            itemCount: personal.length,
                                             itemBuilder: (BuildContext context,
                                                 int index) {
                                               return CheckboxListTile(
-                                                selected: health[index]
+                                                subtitle: CustomText(
+                                                    text: personal[index]
+                                                        ["description"]),
+                                                selected: personal[index]
                                                     ["isdone"],
-                                                value: health[index]["isdone"],
+                                                value: personal[index]
+                                                    ["isdone"],
                                                 onChanged: (value) {
                                                   setState(() {
-                                                    health[index]["isdone"] =
+                                                    personal[index]["isdone"] =
                                                         value!;
                                                   });
                                                 },
                                                 title: CustomText(
-                                                    text: health[index]
-                                                        ["category"]),
+                                                  text: personal[index]
+                                                      ["category"],
+                                                  fontWeight: FontWeight.w500,
+                                                ),
                                               );
                                             })
+                                    : _index == 2
+                                        ? shopping.length == 0
+                                            ? Column(children: [
+                                                SizedBox(
+                                                  height: Mheight * 0.14,
+                                                ),
+                                                CustomText(
+                                                  text:
+                                                      'Zero tasks please click on plus button to add one',
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.w500,
+                                                ),
+                                              ])
+                                            : ListView.builder(
+                                                physics: ScrollPhysics(),
+                                                shrinkWrap: true,
+                                                itemCount: shopping.length,
+                                                itemBuilder:
+                                                    (BuildContext context,
+                                                        int index) {
+                                                  return CheckboxListTile(
+                                                    subtitle: CustomText(
+                                                        text: shopping[index]
+                                                            ["description"]),
+                                                    selected: shopping[index]
+                                                        ["isdone"],
+                                                    value: shopping[index]
+                                                        ["isdone"],
+                                                    onChanged: (value) {
+                                                      setState(() {
+                                                        shopping[index]
+                                                            ["isdone"] = value!;
+                                                      });
+                                                    },
+                                                    title: CustomText(
+                                                      text: shopping[index]
+                                                          ["category"],
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                    ),
+                                                  );
+                                                })
+                                        : health.length == 0
+                                            ? Column(children: [
+                                                SizedBox(
+                                                  height: Mheight * 0.14,
+                                                ),
+                                                CustomText(
+                                                  text:
+                                                      'Zero tasks please click on plus button to add one',
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.w500,
+                                                ),
+                                              ])
+                                            : ListView.builder(
+                                                physics: ScrollPhysics(),
+                                                shrinkWrap: true,
+                                                itemCount: health.length,
+                                                itemBuilder:
+                                                    (BuildContext context,
+                                                        int index) {
+                                                  return CheckboxListTile(
+                                                    subtitle: CustomText(
+                                                        text: health[index]
+                                                            ["description"]),
+                                                    selected: health[index]
+                                                        ["isdone"],
+                                                    value: health[index]
+                                                        ["isdone"],
+                                                    onChanged: (value) {
+                                                      setState(() {
+                                                        health[index]
+                                                            ["isdone"] = value!;
+                                                      });
+                                                    },
+                                                    title: CustomText(
+                                                      text: health[index]
+                                                          ["category"],
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                    ),
+                                                  );
+                                                })
                           ],
                         ),
                       ),

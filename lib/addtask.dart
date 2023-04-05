@@ -191,7 +191,7 @@ class _addTaskState extends State<addTask> {
                             });
                           }
                           print(dropdownvalue);
-                          Navigator.pushNamed(context, 'dashboard');
+                          Navigator.pushReplacementNamed(context, 'dashboard');
                         },
                         child: Center(
                           child: CustomText(
