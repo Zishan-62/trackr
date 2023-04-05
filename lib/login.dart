@@ -10,6 +10,16 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
   @override
+  TextEditingController countrycode = TextEditingController();
+  bool isLoading = false;
+  var phone = '';
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    countrycode.text = "+91";
+  }
+
   final _formKey = GlobalKey<FormState>();
   Widget build(BuildContext context) {
     var Mheight = MediaQuery.of(context).size.height;
@@ -76,24 +86,64 @@ class _LoginState extends State<Login> {
                           height: Mheight * 0.166,
                         ),
                         Wrap(children: [
-                          TextFormField(
-                            // onSaved: (newValue) => _username = newValue,
-                            style: const TextStyle(color: Color(0xff4285f4)),
-                            decoration: InputDecoration(
-                              // focusedBorder: OutlineInputBorder(
-                              //     borderRadius: BorderRadius.circular(10)),
-                              // enabledBorder: OutlineInputBorder(
-                              //     borderRadius: BorderRadius.circular(10)),
-                              filled: true,
-                              fillColor: Color(0xFFF0F0F0),
-                              border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(10)),
-                              hintText: 'Enter Number',
-                              hintStyle: TextStyle(
-                                color: Color(0xFFB6B6B6),
-                              ),
+                          Row(children: [
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.01,
                             ),
-                          ),
+                            //country code
+                            SizedBox(
+                                width: MediaQuery.of(context).size.width * 0.2,
+                                child: TextFormField(
+                                  style: TextStyle(
+                                      color: Color(0xFF3C5BFA),
+                                      fontFamily: "Montserrat",
+                                      fontWeight: FontWeight.w500),
+                                  keyboardType: TextInputType.phone,
+                                  controller: countrycode,
+                                  decoration: InputDecoration(
+                                    border: InputBorder.none,
+                                    filled: true,
+                                    fillColor: Color(0xFFF4F4F4),
+                                  ),
+                                )),
+                            // bich mae gap kae liyae
+                            Text(
+                              '|',
+                              style:
+                                  TextStyle(fontSize: 40, color: Colors.grey),
+                            ),
+                            //phone no kae liyae
+                            Expanded(
+                                child: TextFormField(
+                              // maxLength: 10,
+                              onChanged: (value) {
+                                phone = value;
+                              },
+                              style: TextStyle(
+                                  color: Color(0xFF3C5BFA),
+                                  fontFamily: "Montserrat",
+                                  fontWeight: FontWeight.w500),
+                              keyboardType: TextInputType.phone,
+                              validator: (value) {
+                                if (value!.isEmpty ||
+                                    value.length < 10 ||
+                                    !RegExp(r'^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$')
+                                        .hasMatch(value)) {
+                                  //  r'^[0-9]{10}$' pattern plain match number with length 10
+                                  return "Enter Correct Phone Number";
+                                } else {
+                                  return "Mobile must contain 10 Digit";
+                                }
+                              },
+                              decoration: InputDecoration(
+                                filled: true,
+                                fillColor: Color(0xFFF4F4F4),
+                                border: InputBorder.none,
+                                hintText: 'Enter Mobile Number',
+                                hintStyle: TextStyle(fontFamily: "Montserrat"),
+                              ),
+                            ))
+                          ]),
                         ]),
                         SizedBox(
                           height: Mheight * 0.062,

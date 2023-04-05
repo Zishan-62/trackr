@@ -4,6 +4,8 @@ import 'package:trackr/login.dart';
 import 'package:trackr/splashscreen.dart';
 import 'package:trackr/otp.dart';
 
+import 'addtask.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -26,6 +28,7 @@ class MyApp extends StatelessWidget {
         'splash': (context) => SplashScreen(),
         'login': (context) => Login(),
         'otp': (context) => OTP(),
+        'addtask':(context) => addTask(),
       },
     );
   }
